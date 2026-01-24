@@ -80,6 +80,9 @@ class ParentNode(HTMLNode):
             return f'<{self.tag}{formatted_props_to_html}>{child_accumulator}</{self.tag}>'
         else:
             return f'<{self.tag}>{child_accumulator}</{self.tag}>'
+    
+    def __repr__(self):
+        return f'ParentNode({self.tag}, {self.children}, {self.props})'
         
 
         
