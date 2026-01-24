@@ -1,7 +1,9 @@
-#Unit tests to validate htmlnodes
+#Unit tests to validate htmlnode, leafnode, parentnode
 import unittest
 
-from htmlnode import HTMLNode, LeafNode, ParentNode
+from htmlnode import HTMLNode
+from leafnode import LeafNode
+from parentnode import ParentNode
 
 class TestHTMLNode(unittest.TestCase):
     def test_props_to_html_empty(self):
@@ -37,7 +39,6 @@ class TestHTMLNode(unittest.TestCase):
             parent_node.to_html(),
             "<div><span><b>grandchild</b></span></div>",
         )
-
 
 if __name__ == "__main__":
     unittest.main()
