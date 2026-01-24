@@ -2,15 +2,14 @@ from enum import Enum
 
 #Enum class for all the different types of inline text (text nodes).
 class TextType(Enum):
-    PLAIN_TEXT = "plain"
-    BOLD_TEXT = 'bold'
-    ITALIC_TEXT = 'italic'
-    CODE_TEXT = 'code'
-    LINKS_TEXT = 'link'
-    IMAGES_TEXT = 'image'
+    PLAIN = "plain"
+    BOLD = 'bold'
+    ITALIC = 'italic'
+    CODE = 'code'
+    LINK = 'link'
+    IMAGE = 'image'
 
-#print(TextType('hello'))
-
+#TextNode class
 class TextNode():
 
     def __init__(self, text, text_type, url=None):
