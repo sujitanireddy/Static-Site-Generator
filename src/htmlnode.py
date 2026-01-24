@@ -1,5 +1,4 @@
 # HTMLNode class will represent a "node" in an HTML document tree (like a <p> tag and its contents, or an <a> tag and its contents). 
-# It can be block level or inline, and is designed to only output HTML.
 class HTMLNode():
 
     def __init__(self, tag=None, value=None, children=None, props=None):
@@ -9,7 +8,7 @@ class HTMLNode():
         self.props = props
     
     def to_html(self):
-        raise NotImplementedError("Still to be implemented")
+        raise NotImplementedError("Not Implemented for HTMLNode base class")
 
     def props_to_html(self):
 
@@ -39,7 +38,7 @@ class LeafNode(HTMLNode):
     def to_html(self):
         
         if self.value is None:
-            raise ValueError
+            raise ValueError("No text to add to leaf node")
         
         if self.tag is None:
             return self.value
@@ -54,3 +53,35 @@ class LeafNode(HTMLNode):
             
     def __repr__(self):
         return f'LeafNode({self.tag}, {self.value}, {self.props})'
+    
+
+#Class to generate a ParentNode - Any HTML node that's not "leaf" node (i.e. it has children) is a "parent" node.
+class ParentNode(HTMLNode):
+
+    def __init__(self, tag, children, props=None):
+        super().__init__(tag=tag, children=children, props=props)
+
+    def to_html(self):
+
+        if self.tag is None:
+            raise ValueError("No tag to add to parent node")
+
+        if not self.children:
+            raise ValueError("children are missing")
+
+        child_accumulator = ''
+
+        for child in self.children:
+
+            child_accumulator += child.to_html()
+        
+        if self.props:
+            formatted_props_to_html = self.props_to_html()
+            return f'<{self.tag}{formatted_props_to_html}>{child_accumulator}</{self.tag}>'
+        else:
+            return f'<{self.tag}>{child_accumulator}</{self.tag}>'
+        
+
+        
+
+        
