@@ -20,7 +20,6 @@ class LeafNode(HTMLNode):
         else:
             if self.props:
                 formatted_props_to_html = self.props_to_html()
-                
                 return f'<{self.tag}{formatted_props_to_html}>{self.value}</{self.tag}>'
             else:
                 return f'<{self.tag}>{self.value}</{self.tag}>'

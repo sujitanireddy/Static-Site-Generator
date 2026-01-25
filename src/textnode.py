@@ -3,7 +3,7 @@ from leafnode import LeafNode
 
 #Enum class for all the different types of inline text (text nodes).
 class TextType(Enum):
-    TEXT = "text"
+    TEXT = 'text'
     BOLD = 'bold'
     ITALIC = 'italic'
     CODE = 'code'
@@ -40,12 +40,10 @@ def text_node_to_html_node(text_node):
         return LeafNode(tag='code', value=text_node.text)
     
     elif text_node.text_type == TextType.LINK:
-        return LeafNode(tag='a', value=text_node.text, props={"href" : text_node.url})
+        return LeafNode(tag='a', value=text_node.text, props={"href": text_node.url})
     
     elif text_node.text_type == TextType.IMAGE:
         return LeafNode(tag='img', value='', props={"src": text_node.url, "alt": text_node.text})
     
     else:
         raise Exception("TextNode does not match any type")
-
-    
