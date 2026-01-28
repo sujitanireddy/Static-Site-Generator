@@ -1,6 +1,6 @@
 import unittest
 from textnode import TextNode, TextType
-from splitdelimiter import split_nodes_delimiter, split_nodes_image, split_nodes_link
+from splitdelimiter import split_nodes_delimiter, split_nodes_image, split_nodes_link, text_to_textnodes
 
 class TestSplitNodesDelimiter(unittest.TestCase):
     def test_no_delimiters_plain_text(self):
@@ -95,6 +95,32 @@ class TestSplitNodesDelimiter(unittest.TestCase):
             ],
             new_nodes,
         )
+
+    def test_text_to_textnodes_simple_mixed_formats(self):
+        # arrange
+        text = "This is **text** with an _italic_ word and a `code block`"
+
+        # act
+        result = text_to_textnodes(text)
+
+        # assert: correct length
+        assert len(result) == 6
+
+        # assert: types
+        assert result[0].text_type == TextType.TEXT
+        assert result[1].text_type == TextType.BOLD
+        assert result[2].text_type == TextType.TEXT
+        assert result[3].text_type == TextType.ITALIC
+        assert result[4].text_type == TextType.TEXT
+        assert result[5].text_type == TextType.CODE
+
+        # assert: texts
+        assert result[0].text == "This is "
+        assert result[1].text == "text"
+        assert result[2].text == " with an "
+        assert result[3].text == "italic"
+        assert result[4].text == " word and a "
+        assert result[5].text == "code block"
 
 if __name__ == "__main__":
     unittest.main()
