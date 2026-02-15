@@ -1,6 +1,7 @@
 from markdown_blocks import markdown_to_blocks, block_to_block_type, BlockType
 from parentnode import ParentNode
 from textnode import TextNode, TextType, text_node_to_html_node
+from splitdelimiter import text_to_textnodes
 
 
 #Converts a full markdown doc to a HTMLNode 
@@ -14,9 +15,6 @@ def markdown_to_html_node(markdown):
     for block in blocks:
 
         block_type = block_to_block_type(block) #Determines the type of block
-
-        #print(block)
-        #print(f"block_type: {block_type}") #dubugging statement
 
         if block_type == BlockType.HEADING:
             heading_size = 0
@@ -59,15 +57,18 @@ def markdown_to_html_node(markdown):
         
     return ParentNode(children=collection, tag="div")
 
-                
-
         
-#Converts text to TextNodes
+#Converts raw text to TextNodes
 def text_to_children(text):
+
+    text_nodes = text_to_textnodes(text)
+
+    children = []
     
-    pass #placeholder
+    for text in text_nodes:
+        children.append(text_node_to_html_node(text))
 
-
+    return children
 
 
 #testing
