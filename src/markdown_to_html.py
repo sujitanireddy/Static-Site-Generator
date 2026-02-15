@@ -1,5 +1,6 @@
 from markdown_blocks import markdown_to_blocks, block_to_block_type, BlockType
 from parentnode import ParentNode
+from textnode import TextNode, TextType, text_node_to_html_node
 
 
 #Converts a full markdown doc to a HTMLNode 
@@ -14,8 +15,8 @@ def markdown_to_html_node(markdown):
 
         block_type = block_to_block_type(block) #Determines the type of block
 
-        print(block)
-        print(f"block_type: {block_type}") #dubugging statement
+        #print(block)
+        #print(f"block_type: {block_type}") #dubugging statement
 
         if block_type == BlockType.HEADING:
             heading_size = 0
@@ -51,14 +52,14 @@ def markdown_to_html_node(markdown):
         if block_type == BlockType.QUOTE:
             quote_text = " ".join([quote[1:] for quote in block.split("\n")])
             collection.append(ParentNode(children=text_to_children(quote_text), tag="blockquote"))
+
+        if block_type == BlockType.CODE:
+            code_node = ParentNode(children=[text_node_to_html_node(TextNode(text=block[3:-3],text_type=TextType.TEXT))], tag="code")
+            collection.append(ParentNode(children=[code_node], tag="pre"))
         
     return ParentNode(children=collection, tag="div")
 
                 
-
-
-
-
 
         
 #Converts text to TextNodes
@@ -78,4 +79,10 @@ markdown_to_html_node(markdown="""
 1. First step: Gather ingredients
 2. Second step: Boil the water
 3. Third step: Add the **Phoenix feather**
+
+```
+function test() {
+  console.log("notice the blank line before this function?");
+}
+```
 """)
