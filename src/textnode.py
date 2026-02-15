@@ -10,7 +10,7 @@ class TextType(Enum):
     LINK = 'link'
     IMAGE = 'image'
 
-#TextNode class" represents the various types of inline text that can exist in HTML and Markdown.
+#TextNode class: represents the various types of inline text that can exist in HTML and Markdown.
 class TextNode():
 
     def __init__(self, text, text_type, url=None):
