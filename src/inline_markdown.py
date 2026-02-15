@@ -33,7 +33,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         
     return new_nodes
 
-#split raw markdown test into TextNodes based on images
+#split raw markdown text into TextNodes based on images
 def split_nodes_image(old_nodes):
     
     new_nodes = []
