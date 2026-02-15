@@ -41,6 +41,11 @@ def markdown_to_html_node(markdown):
             collection.append(ParentNode(children=li_nodes, tag="ul"))
         
         if block_type == BlockType.OLIST:
+            li_nodes = []
+            for line in block.split("\n"):
+                line_text = line[1:].strip()
+                li_nodes.append(ParentNode(children=text_to_children(line_text), tag="li"))
+            collection.append(ParentNode(children=li_nodes, tag="ol"))
 
                 
 
