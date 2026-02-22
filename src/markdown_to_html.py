@@ -13,6 +13,9 @@ def markdown_to_html_node(markdown):
 
     for block in blocks:
 
+        if not block: #skipping empty blocks
+            continue
+
         block_type = block_to_block_type(block) #Determines the type of block
 
         if block_type == BlockType.HEADING:
@@ -75,7 +78,7 @@ def block_type_quote(block, collection):
 
 
 def block_type_code(block, collection):
-    code_node = ParentNode(children=[text_node_to_html_node(TextNode(text=block[3:-3].strip(),text_type=TextType.TEXT))], tag="code")
+    code_node = ParentNode(children=[text_node_to_html_node(TextNode(text=block[4:-3],text_type=TextType.TEXT))], tag="code")
     collection.append(ParentNode(children=[code_node], tag="pre"))
 
 
