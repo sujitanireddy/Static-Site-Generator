@@ -12,7 +12,6 @@ def main():
     copy_static_to_public(source_path=static_dir_path, destination_path=public_dir_path)
 
 
-
 #Function to delete all the contents of the public directory.
 def empty_public_dir(public_dir_path, static_dir_path):
     try:
@@ -42,11 +41,6 @@ def copy_static_to_public(source_path, destination_path):
                     print(f"{item} moved to {destination_path}")
     except Exception as e:
         print(f"Static assets are not present. More details: {e}")
-
-
-
-
-
 
 
 if __name__ == "__main__":
