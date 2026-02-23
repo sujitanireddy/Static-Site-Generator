@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
 import shutil
+
 from textnode import TextNode, TextType
+from gencontent import generate_page
 
 def main():
 
@@ -10,6 +12,11 @@ def main():
 
     empty_public_dir(public_dir_path, static_dir_path)
     copy_static_to_public(source_path=static_dir_path, destination_path=public_dir_path)
+
+    #placeholders for testing
+    generate_page(from_path = "content/index.md",
+                template_path = "template.html",
+                dest_path = "public/index.html")
 
 
 #Function to delete all the contents of the public directory.
