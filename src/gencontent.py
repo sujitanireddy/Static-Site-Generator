@@ -20,8 +20,11 @@ def generate_page(from_path, template_path, dest_path):
 
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
 
-    markdown_string = open(from_path).read()
-    template_content = open(template_path).read()
+    with open(from_path, 'r') as f:
+        markdown_string = f.read()
+
+    with open(template_path, 'r') as f:
+        template_content = f.read()
 
     html_node = markdown_to_html_node(markdown_string)
 
@@ -32,13 +35,12 @@ def generate_page(from_path, template_path, dest_path):
     template_content = template_content.replace('{{ Title }}', title)
     template_content = template_content.replace('{{ Content }}', html_string)
 
-    #Write the new full HTML page to a file at dest_path. Be sure to create any necessary directories if they don't exist.
-
-
-
-
+    directory = os.path.dirname(dest_path)
     
-
-
-
-generate_page(from_path="/Users/sujitreddy/workspace/github.com/sujitanireddy/Static-Site-Generator/content/index.md", template_path="/Users/sujitreddy/workspace/github.com/sujitanireddy/Static-Site-Generator/template.html", dest_path="/Users/sujitreddy/workspace/github.com/sujitanireddy/Static-Site-Generator/public/dest/inject.txt")
+    # Create the directory and any missing parent directories
+    if directory != "":
+        os.makedirs(directory, exist_ok=True)
+    
+    # Open the file and write the content
+    with open(dest_path, "w") as f:
+        f.write(template_content)
