@@ -11,15 +11,15 @@ def main():
     else:
         basepath = '/'
 
-    public_dir_path = os.path.abspath("public")
+    public_dir_path = os.path.abspath("docs")
     static_dir_path = os.path.abspath("static")
 
-    empty_public_dir(public_dir_path, static_dir_path)
+    empty_dir(public_dir_path, static_dir_path)
     copy_static_to_public(source_path=static_dir_path, destination_path=public_dir_path)
-    generate_pages_recursive(dir_path_content="content", template_path="template.html", dest_dir_path="public", basepath)
+    generate_pages_recursive(dir_path_content="content", template_path="template.html", dest_dir_path="docs", basepath=basepath)
 
 #Function to delete all the contents of the public directory.
-def empty_public_dir(public_dir_path, static_dir_path):
+def empty_dir(public_dir_path, static_dir_path):
     try:
         if os.listdir(public_dir_path):
             print("Existing content found in public directory. Deleting all contents..")
