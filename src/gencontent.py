@@ -14,7 +14,7 @@ def extract_title(markdown):
     return header
 
 #Function to generate a page
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
 
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
 
@@ -32,6 +32,8 @@ def generate_page(from_path, template_path, dest_path):
 
     template_content = template_content.replace('{{ Title }}', title)
     template_content = template_content.replace('{{ Content }}', html_string)
+    template_content = template_content.replace('href="/', f'href="{basepath}')
+    template_content = template_content.replace('src="/', f'src="{basepath}')
 
     directory = os.path.dirname(dest_path)
     
@@ -44,7 +46,7 @@ def generate_page(from_path, template_path, dest_path):
         f.write(template_content)
 
 #Funtion to recursivley generate a page
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
 
     root_dir_contents = os.listdir(dir_path_content)
 
