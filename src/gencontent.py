@@ -1,8 +1,6 @@
 import os
-
+import pathlib
 from markdown_to_html import markdown_to_html_node
-
-
 
 #Function to extract H1 heading from Markdown file
 def extract_title(markdown):
@@ -15,7 +13,7 @@ def extract_title(markdown):
         raise Exception("H1 Header not found in markdown file")
     return header
 
-
+#Function to generate a page
 def generate_page(from_path, template_path, dest_path):
 
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
@@ -44,3 +42,21 @@ def generate_page(from_path, template_path, dest_path):
     # Open the file and write the content
     with open(dest_path, "w") as f:
         f.write(template_content)
+
+#Funtion to recursivley generate a page
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+
+    root_dir_contents = os.listdir(dir_path_content)
+
+    for item in root_dir_contents:
+        item_path = os.path.join(dir_path_content, item)
+        
+        if os.path.isdir(item_path):
+            generate_pages_recursive(dir_path_content=item_path, template_path=template_path, dest_dir_path=os.path.join(dest_dir_path, item))
+        
+        elif os.path.isfile(item_path):
+            if item_path.endswith(".md"):
+                new_filename = pathlib.Path(item).with_suffix(".html")
+                generate_page(from_path=item_path, template_path=template_path, dest_path=os.path.join(dest_dir_path, new_filename))
+            
+            
