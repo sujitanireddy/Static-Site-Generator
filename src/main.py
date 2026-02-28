@@ -1,17 +1,22 @@
 import os
-from pathlib import Path
+import sys
 import shutil
 
 from gencontent import generate_pages_recursive
 
 def main():
 
+    if len(sys.argv) > 1:
+        basepath= sys.argv[1]
+    else:
+        basepath = '/'
+
     public_dir_path = os.path.abspath("public")
     static_dir_path = os.path.abspath("static")
 
     empty_public_dir(public_dir_path, static_dir_path)
     copy_static_to_public(source_path=static_dir_path, destination_path=public_dir_path)
-    generate_pages_recursive(dir_path_content="content", template_path="template.html", dest_dir_path="public")
+    generate_pages_recursive(dir_path_content="content", template_path="template.html", dest_dir_path="public", basepath)
 
 #Function to delete all the contents of the public directory.
 def empty_public_dir(public_dir_path, static_dir_path):
