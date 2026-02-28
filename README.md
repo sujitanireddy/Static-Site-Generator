@@ -1,6 +1,7 @@
 # Static Site Generator
 
 A lightweight static-site generator that converts a folder of Markdown files into a fully navigable HTML site.
+[Live demo of a static site generated from Markdown files](https://sujitanireddy.github.io/Static-Site-Generator/)
 
 - Converts **Markdown → HTML**
 - Builds pages **recursively** (nested folders supported)
